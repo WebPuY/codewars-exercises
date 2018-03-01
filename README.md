@@ -115,3 +115,88 @@ String.prototype.camelCase=function(){
   }).join('');
 }
 ````
+
+### 6.Format a string of names like 'Bart, Lisa & Maggie'.(6kyu)
+
+````
+// javascript
+function list(names){
+  //your code here
+    const nameArr = [];
+    names.forEach((item) => {
+        nameArr.push(item.name);
+    });
+    const nameStr = nameArr.join(', ');
+    const index = nameArr.join(', ').lastIndexOf(', ');
+    const nameStrArr = nameStr.split('');
+    index > 0 ? nameStrArr.splice(index, 1, ' &') : nameStrArr;
+    return nameStrArr.join('');
+}
+
+// python
+def namelist(names):
+    #your code here
+    nameList = list()
+    for i in range(0, len(names)):
+        nameList.append(names[i].get('name'))
+    nameStr = ', '.join(nameList)
+    strIndex = nameStr.rfind(', ')
+    if strIndex > -1:
+        return nameStr[:strIndex] + ' &' + nameStr[strIndex+1:]
+    else:
+        return nameStr
+````
+
+### 7.Which are in?（6kyu）
+
+````
+function inArray(array1,array2){
+  const resultArr = [];
+  array1.forEach(function(element) {
+    array2.forEach(function(item) {
+      if (item.indexOf(element) >= 0) {
+        resultArr.push(element);
+      }
+    });
+  });
+  return Array.from(new Set(resultArr)).sort();
+}
+````
+
+### 8.Tribonacci Sequence（6kyu）
+
+````
+// js
+function tribonacci(array,num){
+    if(array.length>=num){
+        array = array.slice(0,num);
+    }
+    for( ;array.length<num; ){
+        array.push(array[array.length-1]+array[array.length-2]+array[array.length-3]);
+    }
+    return array;
+}
+
+// py
+def tribonacci(signature, n):
+    #your code here
+    if n <= len(signature):
+        return signature[:n]
+    finalist=[]
+    finalist=signature
+    for i in range(len(finalist),n):
+        finalist.append(finalist[i-1]+finalist[i-2]+finalist[i-3])
+    return finalist
+````
+
+### 9.Reverse words（6kyu）
+
+````
+// py
+def reverse_words(str):
+    strList=str.split(' ')
+    otherList=list()
+    for i in range(0,len(strList)):
+        otherList.append((strList[i])[::-1])
+    return ' '.join(otherList)
+````
