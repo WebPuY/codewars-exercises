@@ -308,7 +308,7 @@
 	````
 	
 ### 21. Simple Pig Latin(5kyu)
-	····
+	````
 	// 6kyu is better
 	function pigIt(str){
 	  //Code here
@@ -316,10 +316,10 @@
 	    return items.slice(1) + items.slice(0, 1) + 'ay';
 	  }).join(' ');
 	}
-	····
+	````
 
 ### 22. Convert PascalCase string into snake_case(5kyu)
-	····
+	````
 	function toUnderscore(string) {
 	  if (/^[0-9]/g.test(string)) {
 	    return string + '';
@@ -328,10 +328,10 @@
 	    return `_${element}`.toLowerCase()
 	  }).split('').slice(1).join('')
 	}
-	····
+	````
 	
 ### 23. Function Cache(5kyu)
-	····
+	````
 	function cache(func) {
 	  // do your magic here
 	  var cacheObj = {};
@@ -343,10 +343,10 @@
 	    return cacheObj[args];
 	  };
 	}
-	····
+	````
 
 ### 24. First non-repeating character(5kyu)
-	····
+	````
 	// so wordy
 	function firstNonRepeatingLetter(s) {
 	  // Add your code here
@@ -369,10 +369,10 @@
 	  });
 	  return repeatArr[0] || '';
 	}
-	····
+	````
 
 ### 25. Integers: Recreation One(5kyu)
-	····
+	````
 	function getMutis(item) {
 	  const primeArr = [];
 	  for(let i = 1; i <= item; i++) {
@@ -405,10 +405,10 @@
 	    ]
 	  });
 	}
-	····
+	````
 
 ### 26.Pete, the baker (5kyu)
-	····
+	````
 	// so wordy
 	function cakes(recipe, available) {
 	  // TODO: insert code
@@ -442,9 +442,9 @@
 	  resultNum = timeArr.sort((a,b) => {return a-b;})[0];
 	  return resultNum;
 	}
-	····
+	````
 ### 27.Strip Comments (4kyu)
-	····
+	````
 	function solution(input, markers){
 	  const returnArr = []
 	  input.split('\n').forEach(items => {
@@ -461,10 +461,10 @@
 	  })
 	  return returnArr.join('\n')
 	}
-	····
+	````
 	
 ### 27.Twice linear (4kyu)
-	····
+	````
 	function dblLinear(n) {
 	  if(n < 0) return [];
 	  const returnArr = [];
@@ -478,10 +478,10 @@
 	  }
 	  return Array.from(new Set(returnArr)).sort((a,b) => {return a-b;})[n];
 	}
-	····
+	````
 
 ### 27.Snail (4kyu)
-	····
+	````
 	function snail(matrix) {
 	    if (matrix == null || matrix.length == 0) {
 	        return;
@@ -520,9 +520,9 @@
 	    }
 	    return result
 	}
-	····
+	````
 ### 27.Objectify a URL Query String (4kyu)
-	····
+	````
 	function convertQueryToMap(query) {
 	  // add your code here
 	  const queryObjArr = query.split('&');
@@ -543,4 +543,56 @@
 	  });
 	  return returnObj;
 	}
-	····
+	````
+
+
+	### 28.Next bigger number with the same digits (4kyu)
+
+	````
+	function nextBigger(n){
+		// 先判断有没有最大值 如果是从大到小排列的数字，肯定是最大值
+		// 如果不是最大值，则从右边开始找，【个位 十位】是否是从大到小排列。如果判断完毕，判断【个位 十位 百位】。依次增加
+
+		const str = String(n);
+		const numArr = str.split('');
+		const slicedArr = numArr.slice(0);
+		if (isSorted(numArr)) {
+			return -1;
+		}
+		return getCorrectNum(slicedArr);
+
+		function getCorrectNum(arr) {
+			let tempArr = [];
+			let correctArr = [];
+			let correctNum = -1;
+			let copyTempArr = [];
+			let tempCorrectArr = [];
+			for (let i = 2; i <= arr.length; i += 1) {
+				tempArr = arr.slice(-i);
+				copyTempArr = tempArr.slice(0);
+				if (!isSorted(tempArr)) {
+					// 方法1: 如果在第i位开始不是有序数组了。比如[2, 1, 8, 3, 1, 1], 倒序1开始不是有序数组，截取[1, 8, 3, 1, 1]。从右边依次把[1],[1, 1],[3, 1, 1]换到数组头, 31118。再把1118从小到大排列
+					// 方法2: 如果在第i位开始不是有序数组了。比如[1, 8, 3, 1, 1], 先后面的排序11138 => 31118
+					const tempNum = copyTempArr.join('') * 1; // 18311
+					const length = copyTempArr.length - 1
+					for(let j = length; j >= 0; j -= 1) {
+						tempCorrectArr = copyTempArr.slice(j).concat(copyTempArr.slice(0, j))
+						correctArr = tempCorrectArr.splice(0,1).concat(tempCorrectArr.sort((a,b)=> a-b))
+						correctNum = correctArr.join('') * 1  // 31118
+						if (correctNum > tempNum) {
+							return arr.slice(0, -i).concat(correctArr).join('') * 1;
+						}
+					}
+				}
+			}
+			return -2;
+		}
+		// 判断是否是从大到小的有序数组
+		function isSorted(arr) {
+			const arrPre = arr.slice(0);
+			const sortedStr = arr.sort((a,b) => b - a).join('');
+			return arrPre.join('') === sortedStr;
+		}
+	}
+
+	````
