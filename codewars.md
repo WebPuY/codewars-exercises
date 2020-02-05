@@ -546,7 +546,7 @@
 	````
 
 
-	### 28.Next bigger number with the same digits (4kyu)
+### 28.Next bigger number with the same digits (4kyu)
 
 	````
 	function nextBigger(n){
@@ -595,4 +595,24 @@
 		}
 	}
 
+	````
+	
+### 28.Sum Strings as Numbers (4kyu)
+	````
+	function sumStrings(a,b) { 
+	  const aArr = a.split('');
+	  const bArr = b.split('');
+	  let tempFlag = 0; // 进位
+	  let tempAdd = ''; // 暂时的加值
+	  let resultStr = ''; // 结果
+	  const leng = a.length > b.length ? a.length : b.length
+	  for (let i = 0; i <= leng; i++) {
+	    const addEleA = Number(aArr.pop()) || 0; // a的个位数,pop方法会改变原数组
+	    const addEleB = Number(bArr.pop()) || 0; // b的个位数
+	    tempAdd = ((addEleA + addEleB + tempFlag) % 10) + ''
+	    tempFlag = Math.floor((addEleA + addEleB + tempFlag) / 10)
+	    resultStr = tempAdd + resultStr
+	  }
+	  return resultStr.replace(/^0+/,'');
+	}
 	````
